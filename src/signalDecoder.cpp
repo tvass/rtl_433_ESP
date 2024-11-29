@@ -329,6 +329,7 @@ void rtlSetup() {
     // end of fragment
 
 #else
+    // Add your device here
     memcpy(&cfg->devices[0], &lacrosse_tx141x, sizeof(r_device));
 #endif
 

@@ -1,0 +1,25 @@
+#include <ArduinoIoTCloud.h>
+#include <Arduino_ConnectionHandler.h>
+
+// Replace with your device's login name
+const char DEVICE_LOGIN_NAME[]  = "<DEVICE_LOGIN_NAME>";
+
+const char SSID[]               = "<NETWORK_SSID>";    // Network SSID (name)
+const char PASS[]               = "<NETWORK_PASSWORD>"; // Network password (use for WPA, or use as key for WEP)
+const char DEVICE_KEY[]         = "<DEVICE_KEY>";       // Secret device password
+
+void onDeviceIdChange() {};
+
+CloudTemperatureSensor temperature;
+int deviceId;
+CloudRelativeHumidity humidity;
+
+void initProperties(){
+  ArduinoCloud.setBoardId(DEVICE_LOGIN_NAME);
+  ArduinoCloud.setSecretDeviceKey(DEVICE_KEY);
+  ArduinoCloud.addProperty(temperature, READ, 10 * SECONDS, NULL);
+  ArduinoCloud.addProperty(deviceId, READWRITE, 30 * SECONDS, onDeviceIdChange);
+  ArduinoCloud.addProperty(humidity, READ, 10 * SECONDS, NULL);
+}
+
+WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID, PASS);
